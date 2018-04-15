@@ -1,0 +1,49 @@
+#include <wiringPi.h>
+
+#define txPin 7
+#define swPin 0
+
+// Возвращает n-й бит числа
+short getbit(short code, short n) {
+  return (code >> n) & 1;
+}
+
+int main (void)
+{
+  const short big = 640;
+  const short sml = 320;
+  short code = 19104;
+
+  wiringPiSetup();
+
+  pinMode(7, OUTPUT);
+  pinMode(0, OUTPUT);
+
+  digitalWrite(txPin, LOW);
+  digitalWrite(swPin, LOW);
+
+  delay(20);
+
+  for (short p = 0; p < 6; p++) {
+    for (short i = 24; i >= 0; i--) {
+      if (getbit(code, i) == 1) {
+        // one
+        digitalWrite(txPin, HIGH);
+        delayMicroseconds(big);
+        digitalWrite(txPin, LOW);
+        delayMicroseconds(sml);
+      }
+      else {
+        // zero
+        digitalWrite(txPin, HIGH);
+        delayMicroseconds(sml);
+        digitalWrite(txPin, LOW);
+        delayMicroseconds(big);
+      }
+    }
+    digitalWrite(swPin, LOW);
+    digitalWrite(txPin, LOW);
+    delayMicroseconds(20100);
+  }
+  return 0 ;
+}
