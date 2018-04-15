@@ -36,6 +36,7 @@ void grab() {
   } else if (cameCounter >= 20 && (lolen > 1000 || hilen > 1000)) {
     cameCode = (cameCode << 1) | 0;
     printf("0 = %d", cameCounter);
+    printf("%d %d \n", lolen, hilen);
     lastCode = cameCode;
     cameCounter = 0;
     cameCode = 0;
