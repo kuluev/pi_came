@@ -1,6 +1,7 @@
 #include <wiringPi.h>
 #include <stdio.h>
-#include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #define txPin 7
 #define swPin 0
