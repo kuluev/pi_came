@@ -48,8 +48,8 @@ void bruteforce(short from, short to, int times, int delay_between) {
 int main(int argc, char *argv[]) {
   // preparing pins
   wiringPiSetup();
-  pinMode(7, OUTPUT);
-  pinMode(0, OUTPUT);
+  pinMode(txPin, OUTPUT);
+  pinMode(swPin, OUTPUT);
 
   short from = 0;
   short to   = 30000;
@@ -75,7 +75,8 @@ int main(int argc, char *argv[]) {
     default:
       abort ();
     }
-
+  digitalWrite(swPin, LOW);
+  digitalWrite(txPin, LOW);
   bruteforce(from, to, times, delay_between);
   return 0;
 }
