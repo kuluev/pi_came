@@ -54,10 +54,34 @@ int main(int argc, char *argv[]) {
   wiringPiSetup();
   pinMode(7, OUTPUT);
   pinMode(0, OUTPUT);
+  short from = 0;
+  short to = 30000;
+  int delay_between = 20;
+  int times = 4;
+  int c;
+
+  opterr = 0;
+  while ((c = getopt(argc, argv, "f:t:m:d:")) != -1)
+    switch (c) {
+    case 'f':
+      from = atoi(optarg);
+      break;
+    case 't':
+      to = atoi(optarg);
+      break;
+    case 'm':
+      delay_between = atoi(optarg);
+      break;
+    case 'd':
+      delay_between = atoi(optarg);
+      break;
+    default:
+      abort ();
+    }
 
   // sending code
   //short code = 19104;
   //sendcode(code, 6);
-  bruteforce(0, 19104, 1, 20);
+  bruteforce(from, to, times, delay_between);
   return 0;
 }

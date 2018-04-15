@@ -33,9 +33,9 @@ void grab() {
       cameCode = (cameCode << 1) | 0;
       cameCounter++;
     }
-  } else if (cameCounter >= 12 && (lolen > 1000 || hilen > 1000)) {
+  } else if (cameCounter >= 20 && (lolen > 1000 || hilen > 1000)) {
     cameCode = (cameCode << 1) | 0;
-    printf("0 = %d; lolen = %d; hilen = %d", cameCounter, lolen, hilen);
+    printf("0 = %d", cameCounter);
     lastCode = cameCode;
     cameCounter = 0;
     cameCode = 0;
@@ -46,6 +46,7 @@ int main() {
   wiringPiSetup();
   pinMode(rxPin, INPUT);
   wiringPiISR(rxPin, INT_EDGE_BOTH, &grab);
+
   while (1) {
     if (lastCode > 0) {
       printf(" %ld\n", lastCode);
